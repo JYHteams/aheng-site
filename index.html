@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汲奕衡 · AI 应用工程师</title>
+<meta name="description" content="汲奕衡的个人作品集：财小助 AI 审计预检助手、OrionClaw 服务机器人 Agent、AIGC 内容生产工作流。">
+<style>
+  :root{
+    --blue:#2680ff; --blue-d:#1a5fd0; --ink:#1c2333; --text:#3a4253; --light:#8a93a6;
+    --bg:#f5f7fb; --card:#ffffff; --line:#e8edf5; --green:#16a34a; --orange:#e8743b; --purple:#8a5cf6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ===== 顶栏 ===== */
+  .nav{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);z-index:10}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-weight:800;color:var(--ink);font-size:17px}
+  .logo span{color:var(--blue)}
+  .nav a{color:var(--text);text-decoration:none;font-size:14px;margin-left:22px}
+  .nav a:hover{color:var(--blue)}
+
+  /* ===== Hero ===== */
+  .hero{padding:72px 0 56px;text-align:center;background:linear-gradient(180deg,#eef4ff 0%,var(--bg) 100%)}
+  .hero h1{font-size:38px;color:var(--ink);letter-spacing:1px}
+  .hero .role{margin-top:10px;font-size:18px;color:var(--blue);font-weight:600}
+  .hero .tag{margin-top:18px;font-size:15px;color:var(--text);max-width:640px;margin-left:auto;margin-right:auto}
+  .hero .motto{display:inline-block;margin-top:22px;padding:10px 22px;border:1px solid #cfe0ff;background:#fff;border-radius:999px;color:var(--blue-d);font-size:14px;font-weight:600}
+  .chips{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .chip{padding:5px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;color:var(--text)}
+
+  /* ===== 区块 ===== */
+  section{padding:56px 0}
+  .sec-h{font-size:26px;color:var(--ink);font-weight:800;margin-bottom:6px}
+  .sec-sub{color:var(--light);font-size:14px;margin-bottom:32px}
+
+  /* ===== 项目卡 ===== */
+  .proj{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px;margin-bottom:28px;box-shadow:0 2px 10px rgba(28,42,80,.04)}
+  .proj-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .proj-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0}
+  .proj h3{font-size:21px;color:var(--ink)}
+  .proj .period{color:var(--light);font-size:13px;margin-left:auto}
+  .proj .intro{margin-top:14px;font-size:15px}
+  .hl{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .hl-item{background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13.5px}
+  .hl-item b{display:block;color:var(--ink);margin-bottom:4px;font-size:14px}
+  .stack{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px}
+  .stack span{padding:3px 10px;border-radius:6px;background:#eef4ff;color:var(--blue-d);font-size:12px}
+  .btns{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:9px 20px;border-radius:9px;font-size:14px;text-decoration:none;font-weight:600}
+  .btn-pri{background:var(--blue);color:#fff}
+  .btn-pri:hover{background:var(--blue-d)}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:#fff}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  .media-slot{margin-top:18px;border:1px dashed #c8d4e8;border-radius:12px;padding:26px;text-align:center;color:var(--light);font-size:13px;background:#fafbfe}
+  .media-slot video,.media-slot img{max-width:100%;border-radius:10px;display:block;margin:0 auto}
+
+  /* 架构小图（纯CSS） */
+  .arch{margin-top:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;background:#f8fafd;border:1px solid var(--line);border-radius:12px;padding:18px}
+  .arch .node{padding:10px 16px;border-radius:10px;background:#fff;border:1.5px solid #cfe0ff;color:var(--ink);font-size:13px;font-weight:600;text-align:center}
+  .arch .node small{display:block;font-weight:400;color:var(--light);font-size:11px;margin-top:2px}
+  .arch .arr{color:#9db4dd;font-size:18px;font-weight:700}
+  .arch .node.core{border-color:var(--blue);background:#eef4ff}
+
+  /* ===== 理念区 ===== */
+  .belief{background:linear-gradient(135deg,#12203f 0%,#1c3363 100%);border-radius:18px;color:#dce7fb;padding:40px 36px}
+  .belief h3{color:#fff;font-size:20px;margin-bottom:12px}
+  .belief p{font-size:14.5px;color:#b9cbeb}
+  .belief b{color:#8fc3ff}
+
+  /* ===== 关于/联系 ===== */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:720px){.about-grid{grid-template-columns:1fr}}
+  .about-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px}
+  .about-card h4{color:var(--ink);font-size:16px;margin-bottom:12px}
+  .tl{list-style:none}
+  .tl li{padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px;display:flex;justify-content:space-between;gap:12px}
+  .tl li:last-child{border-bottom:none}
+  .tl .t{color:var(--light);flex-shrink:0}
+  footer{padding:36px 0 48px;text-align:center;color:var(--light);font-size:13px}
+  footer a{color:var(--blue);text-decoration:none}
+
+  @media(max-width:640px){
+    .hero h1{font-size:30px}
+    .proj{padding:24px 18px}
+    .proj .period{margin-left:0;width:100%}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap nav-in">
+  <div class="logo">汲奕衡 <span>· AI 应用工程师</span></div>
+  <div>
+    <a href="#projects">项目</a>
+    <a href="#belief">工程理念</a>
+    <a href="#about">关于我</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <h1>汲奕衡</h1>
+  <div class="role">AI 应用工程师 · 让大模型真正落到真实业务</div>
+  <div class="tag">6 年大数据工程功底（数据平台 0→1 / 数仓 / Spark），近两年全面转向 AI 应用落地。独立交付金融审计、实体服务机器人、AIGC 内容生产三个不同领域的 AI/Agent 项目。</div>
+  <div class="motto">🔍 玻璃盒理念：界面只呈现真实数据，不靠大模型圆场</div>
+  <div class="chips">
+    <span class="chip">Agent 编排</span><span class="chip">Python</span><span class="chip">React / TypeScript</span>
+    <span class="chip">DeepSeek / LLM 应用</span><span class="chip">WebSocket</span><span class="chip">Spark / 大数据</span>
+    <span class="chip">Linux / Nginx 部署</span>
+  </div>
+</div></header>
+
+<section id="projects"><div class="wrap">
+  <div class="sec-h">项目作品</div>
+  <div class="sec-sub">三个领域 · 全部独立开发 · 全部可讲到实现细节</div>
+
+  <!-- 财小助 -->
+  <div class="proj">
+    <div class="proj-top">
+      <div class="proj-ico" style="background:var(--blue)">财</div>
+      <h3>财小助 · AI 审计预检助手</h3>
+      <div class="period">2026.05 – 至今 · 已部署上线</div>
+    </div>
+    <div class="intro">面向审计师的强合规 AI 产品：上传科目余额表 / 财务报表，确定性审计引擎自动执行 54 项检查，输出<b>可追溯</b>的风险信号，5 位审计专家 Agent 协作呈现。金融场景的反幻觉设计——审计结论由引擎计算，大模型只负责编排与表达。</div>
+    <div class="arch">
+      <div class="node">React 前端<small>只渲染真实 JSON</small></div>
+      <div class="arr">⇄</div>
+      <div class="node core">Agent 平台<small>WS 事件流 · DeepSeek 编排</small></div>
+      <div class="arr">⇄</div>
+      <div class="node">确定性审计引擎<small>31+23 项检查 · Python</small></div>
+      <div class="arr">→</div>
+      <div class="node">72 条规则知识库<small>七步蒸馏法</small></div>
+    </div>
+    <div class="hl">
+      <div class="hl-item"><b>玻璃盒可信架构</b>引擎输出与 LLM 文字严格分离，每个风险信号可回溯到规则原文，不给幻觉留空间。</div>
+      <div class="hl-item"><b>七步蒸馏知识库</b>把审计专家经验按「道法术势例辩用」结构化为 72 条可检索规则，蒸馏 → 入库 → 审计引用闭环。</div>
+      <div class="hl-item"><b>生产级疑难排障</b>攻克 20 万 token 大文件撑爆上下文、LLM 长路径误写等真实生产问题，全栈部署上线。</div>
+    </div>
+    <div class="stack"><span>React</span><span>TypeScript</span><span>Tailwind</span><span>WebSocket</span><span>Python</span><span>DeepSeek</span><span>Nginx</span><span>systemd</span></div>
+    <div class="btns">
+      <a class="btn btn-pri" href="http://123.60.63.72" target="_blank">🚀 在线体验（真实运行中）</a>
+    </div>
+  </div>
+
+  <!-- OrionClaw -->
+  <div class="proj">
+    <div class="proj-top">
+      <div class="proj-ico" style="background:var(--orange)">🤖</div>
+      <h3>OrionClaw · 服务机器人 AI Agent</h3>
+      <div class="period">2026.04 – 2026.05 · 真机部署</div>
+    </div>
+    <div class="intro">基于 OpenClaw 框架的实体服务机器人 Agent 系统，AI 驱动猎户星空豹小秘2 / 小护 / 小艾机器人<b>真实硬件</b>。经反编译 + 日志逆向适配老版 RobotOS，重写 TTS/ASR 链路，实现 44+ 条机器人能力指令：多楼层电梯导航、语音交互、自动充电、自主巡场多模态视觉检测。</div>
+    <div class="arch">
+      <div class="node">AI 大脑<small>OpenClaw Agent · Python 技能库 ~1300 行</small></div>
+      <div class="arr">⇄</div>
+      <div class="node core">WebSocket 网关<small>Node · ~1800 行 · 心跳重连</small></div>
+      <div class="arr">⇄</div>
+      <div class="node">机器人 APK<small>Kotlin/Android · ~3300 行 · 前台保活</small></div>
+    </div>
+    <div class="media-slot" id="orionVideo">
+      🎬 真机运行视频（待嵌入）
+    </div>
+    <div class="hl">
+      <div class="hl-item"><b>逆向适配真实硬件</b>上游开源项目不支持老版 RobotOS，经反编译 + 日志逆向定位 SkillApi 调用路径完成适配。</div>
+      <div class="hl-item"><b>三层架构自研</b>「AI ↔ 网关 ↔ 机器人 APK」三层，自实现 WS 心跳重连、前台服务保活、ASR 事件总线。</div>
+      <div class="hl-item"><b>44+ 条能力指令</b>覆盖导航、语音、充电、巡场视觉检测，真机部署交付。</div>
+    </div>
+    <div class="stack"><span>Kotlin / Android</span><span>Node.js</span><span>WebSocket</span><span>Python</span><span>OpenClaw</span><span>RobotOS</span></div>
+  </div>
+
+  <!-- AIGC -->
+  <div class="proj">
+    <div class="proj-top">
+      <div class="proj-ico" style="background:var(--purple)">🎬</div>
+      <h3>AIGC 内容生产自动化工作流</h3>
+      <div class="period">2025.05 – 2026.02</div>
+    </div>
+    <div class="intro">针对 AIGC 内容生产人工重复多、效率低的痛点，基于 Claude Code Agent 开发全流程自动化工作流：剧本输入 → 分镜提示词自动生成，替代约 70% 人工操作，单条提示词耗时从 10 分钟降至 30 秒。独立完成多部仿真人短片及漫剧内容的全流程量产落地。</div>
+    <div class="hl">
+      <div class="hl-item"><b>流程自动化</b>剧本 → 分镜 → 提示词全链路 Agent 化，效率提升 20 倍（10 分钟 → 30 秒）。</div>
+      <div class="hl-item"><b>质量工程化</b>少样本学习 + 思维链提示优化生成质量，沉淀可复用流程模板与提示词模板库。</div>
+      <div class="hl-item"><b>真实量产</b>多部仿真人短片、漫剧内容全流程量产落地，不是 demo 是产线。</div>
+    </div>
+    <div class="stack"><span>Claude Code Agent</span><span>Prompt 工程</span><span>少样本学习</span><span>思维链</span><span>工作流编排</span></div>
+  </div>
+</div></section>
+
+<section id="belief"><div class="wrap">
+  <div class="belief">
+    <h3>🔍 我的工程理念：玻璃盒</h3>
+    <p>AI 产品最大的风险不是「不够聪明」，而是<b>「一本正经地编」</b>。我坚持：业务结论由<b>确定性引擎</b>计算得出，大模型只负责编排调度与自然语言呈现；界面只渲染真实数据，引擎没跑就明说「引擎未执行」，绝不让 LLM 替缺失的数据圆场。每个结论可追溯、可验证——在金融审计这样的强合规场景，<b>可信比流畅更重要</b>。</p>
+  </div>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <div class="sec-h">关于我</div>
+  <div class="sec-sub">6 年大数据 → AI 应用，转型不是跳槽，是把地基用在了新楼上</div>
+  <div class="about-grid">
+    <div class="about-card">
+      <h4>📈 经历时间线</h4>
+      <ul class="tl">
+        <li><span>江苏小艾机器人 · AI应用工程师</span><span class="t">2026.04 – 至今</span></li>
+        <li><span>系统自学 AI 应用开发 + AIGC 实战</span><span class="t">2024.07 – 2026.03</span></li>
+        <li><span>北京泰豪 · 数据开发工程师</span><span class="t">2022.08 – 2024.06</span></li>
+        <li><span>北京易华录 · 大数据开发工程师</span><span class="t">2018.05 – 2022.07</span></li>
+        <li><span>郑州大学 · 计算机科学与技术 本科</span><span class="t">2013 – 2017</span></li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h4>🧰 技术版图</h4>
+      <ul class="tl">
+        <li><span>AI 应用</span><span class="t">Agent 编排 · Prompt 工程 · DeepSeek / Claude · LLM 集成</span></li>
+        <li><span>前端</span><span class="t">React · TypeScript · Vite · Tailwind</span></li>
+        <li><span>后端</span><span class="t">Python · Node.js · WebSocket · FastAPI</span></li>
+        <li><span>大数据</span><span class="t">Spark · Flink · Hive · Kafka · ES</span></li>
+        <li><span>工程化</span><span class="t">Linux · Nginx · systemd · Git · 全栈部署</span></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<footer>
+  <div>📮 maoerge123@163.com　·　📱 155-1032-6928　·　📍 求职意向：AI 应用工程师（南京）</div>
+  <div style="margin-top:8px">© 2026 汲奕衡 · aheng.cloud</div>
+</footer>
+
+</body>
+</html>
