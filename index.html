@@ -86,7 +86,8 @@
 
   .arch .node[data-d]{cursor:pointer;transition:box-shadow .15s,transform .15s}
   .arch .node[data-d]:hover{box-shadow:0 3px 12px rgba(38,128,255,.22);transform:translateY(-1px)}
-  .arch .node.active{border-color:var(--blue)!important;background:#eef4ff!important}
+  .arch .node.active{border-color:var(--blue)!important;background:var(--blue)!important;color:#fff!important}
+  .arch .node.active small{color:#d5e6ff!important}
   .arch-hint{width:100%;text-align:center;font-size:12px;color:#9db4dd;margin-top:2px}
   .arch-detail{display:none;width:100%;margin-top:8px;background:#fff;border:1px solid #cfe0ff;border-left:3px solid var(--blue);border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--text);text-align:left;line-height:1.8}
   .arch-detail.show{display:block}
@@ -162,11 +163,11 @@
     </div>
     <div class="intro">基于 OpenClaw 框架的实体服务机器人 Agent 系统，AI 驱动猎户星空豹小秘2 / 小护 / 小艾机器人<b>真实硬件</b>。经反编译 + 日志逆向适配老版 RobotOS，重写 TTS/ASR 链路，实现 44+ 条机器人能力指令：多楼层电梯导航、语音交互、自动充电、自主巡场多模态视觉检测。</div>
     <div class="arch">
-      <div class="node" data-d="OpenClaw Agent + Python 技能库（约 1300 行）：LangGraph 做意图识别与任务路由；多模型按场景路由——云端 DeepSeek 主编排、Qwen-VL 负责巡场多模态视觉检测、本地 Ollama 兜底，按&quot;最便宜够用&quot;原则选型。">AI 大脑<small>OpenClaw Agent · Python 技能库 ~1300 行</small></div>
+      <div class="node" data-d="OpenClaw Agent + Python 技能库：LangGraph 做意图识别与任务路由；多模型按场景路由——云端 DeepSeek 主编排、Qwen-VL 负责巡场多模态视觉检测、本地 Ollama 兜底，按&quot;最便宜够用&quot;原则选型。">AI 大脑<small>OpenClaw Agent · 意图路由 · 多模型调度</small></div>
       <div class="arr">⇄</div>
-      <div class="node core" data-d="Node 实现（约 1800 行），是 AI 与机器人之间的翻译官：自实现 WS 心跳重连、消息序列化、ASR 事件总线，保证长连接在真机弱网环境下的稳定性；协议层把 AI 的决策翻译成机器人能执行的指令。">WebSocket 网关<small>Node · ~1800 行 · 心跳重连</small></div>
+      <div class="node core" data-d="Node 实现，是 AI 与机器人之间的翻译官：自实现 WS 心跳重连、消息序列化、ASR 事件总线，保证长连接在真机弱网环境下的稳定性；协议层把 AI 的决策翻译成机器人能执行的指令。">WebSocket 网关<small>Node · 心跳重连 · 事件总线</small></div>
       <div class="arr">⇄</div>
-      <div class="node" data-d="Kotlin/Android（约 3300 行）跑在豹小秘2/小护真机上：上游开源项目不支持老版 RobotOS，经反编译 + 日志逆向定位 SkillApi 调用路径完成适配，重写 TTS/ASR 链路，前台服务保活，落地导航、充电、巡场等 44+ 条能力指令。">机器人 APK<small>Kotlin/Android · ~3300 行 · 前台保活</small></div>
+      <div class="node" data-d="Kotlin/Android 应用跑在豹小秘2/小护真机上：上游开源项目不支持老版 RobotOS，经反编译 + 日志逆向定位 SkillApi 调用路径完成适配，重写 TTS/ASR 链路，前台服务保活，落地导航、充电、巡场等 44+ 条能力指令。">机器人 APK<small>Kotlin/Android · SkillApi 适配 · 前台保活</small></div>
     </div>
     <div class="media-slot" id="orionVideo" style="border-style:solid;background:#0f1420;padding:14px">
       <div style="color:#9db4dd;font-size:13px;margin-bottom:10px">🎬 真机运行演示 · 豹小护（语音交互 / 健康管家）</div>
@@ -280,7 +281,11 @@ document.querySelectorAll('.arch').forEach(function(arch){
       if(n.classList.contains('active')){ n.classList.remove('active'); panel.classList.remove('show'); return; }
       nodes.forEach(function(x){ x.classList.remove('active'); });
       n.classList.add('active');
-      panel.textContent = n.getAttribute('data-d');
+      var name = (n.childNodes[0] && n.childNodes[0].textContent || '').trim();
+      panel.innerHTML = '';
+      var b = document.createElement('strong'); b.textContent = name + '：';
+      panel.appendChild(b);
+      panel.appendChild(document.createTextNode(n.getAttribute('data-d')));
       panel.classList.add('show');
     });
   });
