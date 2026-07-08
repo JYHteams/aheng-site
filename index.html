@@ -83,6 +83,14 @@
   footer{padding:36px 0 48px;text-align:center;color:var(--light);font-size:13px}
   footer a{color:var(--blue);text-decoration:none}
 
+
+  .arch .node[data-d]{cursor:pointer;transition:box-shadow .15s,transform .15s}
+  .arch .node[data-d]:hover{box-shadow:0 3px 12px rgba(38,128,255,.22);transform:translateY(-1px)}
+  .arch .node.active{border-color:var(--blue)!important;background:#eef4ff!important}
+  .arch-hint{width:100%;text-align:center;font-size:12px;color:#9db4dd;margin-top:2px}
+  .arch-detail{display:none;width:100%;margin-top:8px;background:#fff;border:1px solid #cfe0ff;border-left:3px solid var(--blue);border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--text);text-align:left;line-height:1.8}
+  .arch-detail.show{display:block}
+
   @media(max-width:640px){
     .hero h1{font-size:30px}
     .proj{padding:24px 18px}
@@ -126,13 +134,13 @@
     </div>
     <div class="intro">面向审计师的强合规 AI 产品：上传科目余额表 / 财务报表，确定性审计引擎自动执行 54 项检查，输出<b>可追溯</b>的风险信号，5 位审计专家 Agent 协作呈现。金融场景的反幻觉设计——审计结论由引擎计算，大模型只负责编排与表达。</div>
     <div class="arch">
-      <div class="node">React 前端<small>只渲染真实 JSON</small></div>
+      <div class="node" data-d="React + TypeScript + Zustand。铁律是「只渲染引擎真实 JSON」：风险信号、检查结果、报告全部来自后端真实输出，前端不做任何补全或润色——引擎没跑就明示&quot;未执行&quot;。WebSocket 事件流驱动会话与进度状态，102 个单元测试兜底。">React 前端<small>只渲染真实 JSON</small></div>
       <div class="arr">⇄</div>
-      <div class="node core">Agent 平台<small>WS 事件流 · DeepSeek 编排</small></div>
+      <div class="node core" data-d="基于开源 Agent 平台二次开发（源码仅改动一个文件，保持可升级）。DeepSeek 负责编排：识别意图 → 决定调用审计引擎 → 把引擎 JSON 转写成审计师能读的话。针对模型指令跟随不稳，用固定命令模板 + 脚本封装约束行为，不留自由发挥空间。">Agent 平台<small>WS 事件流 · DeepSeek 编排</small></div>
       <div class="arr">⇄</div>
-      <div class="node">确定性审计引擎<small>31+23 项检查 · Python</small></div>
+      <div class="node" data-d="54 项检查全部由 Python 确定性计算（比例、同比、集中度、勾稽核对等 13 种检查型号），每项带判断公式、风险分级与法条引用。大模型无法参与结论生成——这是反幻觉的物理保证，也是&quot;玻璃盒&quot;的根。">确定性审计引擎<small>31+23 项检查 · Python</small></div>
       <div class="arr">→</div>
-      <div class="node">76 条规则知识库<small>七步蒸馏法 · 闭环工坊</small></div>
+      <div class="node" data-d="法规原文按「道法术势例辩用」七步蒸馏为结构化规则，每条带法条与条款号溯源；检查项通过引用字段指回规则原文，执行层不脱离依据层。Web 端蒸馏工坊实现&quot;智能分条 → 批量蒸馏 → 审阅要点雷达（自动比对原文揪出 AI 引入的数字）→ 人工审阅 → 入库&quot;完整闭环。">76 条规则知识库<small>七步蒸馏法 · 闭环工坊</small></div>
     </div>
     <div class="hl">
       <div class="hl-item"><b>玻璃盒可信架构</b>引擎输出与 LLM 文字严格分离，每个风险信号可回溯到规则原文，不给幻觉留空间。</div>
@@ -154,11 +162,11 @@
     </div>
     <div class="intro">基于 OpenClaw 框架的实体服务机器人 Agent 系统，AI 驱动猎户星空豹小秘2 / 小护 / 小艾机器人<b>真实硬件</b>。经反编译 + 日志逆向适配老版 RobotOS，重写 TTS/ASR 链路，实现 44+ 条机器人能力指令：多楼层电梯导航、语音交互、自动充电、自主巡场多模态视觉检测。</div>
     <div class="arch">
-      <div class="node">AI 大脑<small>OpenClaw Agent · Python 技能库 ~1300 行</small></div>
+      <div class="node" data-d="OpenClaw Agent + Python 技能库（约 1300 行）：LangGraph 做意图识别与任务路由；多模型按场景路由——云端 DeepSeek 主编排、Qwen-VL 负责巡场多模态视觉检测、本地 Ollama 兜底，按&quot;最便宜够用&quot;原则选型。">AI 大脑<small>OpenClaw Agent · Python 技能库 ~1300 行</small></div>
       <div class="arr">⇄</div>
-      <div class="node core">WebSocket 网关<small>Node · ~1800 行 · 心跳重连</small></div>
+      <div class="node core" data-d="Node 实现（约 1800 行），是 AI 与机器人之间的翻译官：自实现 WS 心跳重连、消息序列化、ASR 事件总线，保证长连接在真机弱网环境下的稳定性；协议层把 AI 的决策翻译成机器人能执行的指令。">WebSocket 网关<small>Node · ~1800 行 · 心跳重连</small></div>
       <div class="arr">⇄</div>
-      <div class="node">机器人 APK<small>Kotlin/Android · ~3300 行 · 前台保活</small></div>
+      <div class="node" data-d="Kotlin/Android（约 3300 行）跑在豹小秘2/小护真机上：上游开源项目不支持老版 RobotOS，经反编译 + 日志逆向定位 SkillApi 调用路径完成适配，重写 TTS/ASR 链路，前台服务保活，落地导航、充电、巡场等 44+ 条能力指令。">机器人 APK<small>Kotlin/Android · ~3300 行 · 前台保活</small></div>
     </div>
     <div class="media-slot" id="orionVideo" style="border-style:solid;background:#0f1420;padding:14px">
       <div style="color:#9db4dd;font-size:13px;margin-bottom:10px">🎬 真机运行演示 · 豹小护（语音交互 / 健康管家）</div>
@@ -185,13 +193,13 @@
     </div>
     <div class="intro">建在 <b>Obsidian 知识库之上的自研 AI 层</b>：把每天与 AI 的对话自动蒸馏成带双链的"原子认知卡片"，长成一颗可交互的 3D 知识星球；再通过<b>本地 RAG</b> 用自己的话问它、用自己的文风让它写——把易逝的对话变成可检索、可复用、会增值的个人知识资产。</div>
     <div class="arch">
-      <div class="node">对话收割<small>硬货筛子 · 四条全中才成卡</small></div>
+      <div class="node" data-d="Python 脚本增量抽取与 AI 的全部对话，按「硬货筛子」蒸馏成卡：来自真实决策、含非共识判断、有锋利边界、有记忆点金句——四条全中才成卡，宁缺毋滥。质检哲学：蒸馏的信息是垃圾，最后的产品也是垃圾。">对话收割<small>硬货筛子 · 四条全中才成卡</small></div>
       <div class="arr">→</div>
-      <div class="node">Obsidian 卡片库<small>markdown · [[双链]] · 45+ 张</small></div>
+      <div class="node" data-d="纯 markdown + [[双链]] + frontmatter，数据永远可迁移、不被任何工具锁定。设计原则：底座用标准生态（Obsidian），自研只做生态给不了的 AI 层——轮子不重造，数据不上锁。">Obsidian 卡片库<small>markdown · [[双链]] · 45+ 张</small></div>
       <div class="arr">→</div>
-      <div class="node core">本地 RAG<small>Ollama bge-m3 + Chroma</small></div>
+      <div class="node core" data-d="Ollama 本地跑 bge-m3 做中文 Embedding，Chroma 持久化向量库，余弦相似度检索 top-K，增量索引（改哪张只重算哪张）。全程零 API 成本，认知数据不出本机。">本地 RAG<small>Ollama bge-m3 + Chroma</small></div>
       <div class="arr">→</div>
-      <div class="node">问答 / 文案工厂<small>逐观点标注来源卡片</small></div>
+      <div class="node" data-d="回答只准引用检索命中的卡片、逐观点标注〔来源〕，检索不到就明说&quot;库里没有&quot;——宁可空着不许编（玻璃盒用在自己身上）。文案工厂按选题语义检索最相关认知选材，用个人文风画像成稿，素材可点击溯源。">问答 / 文案工厂<small>逐观点标注来源卡片</small></div>
     </div>
     <div class="hl">
       <div class="hl-item"><b>RAG 全链路自研</b>本地 Embedding（bge-m3/Ollama）+ Chroma 向量库 + 语义检索选材，全程零 API 成本、认知数据不出本机。</div>
@@ -257,6 +265,27 @@
   <div>📮 maoerge123@163.com　·　📱 155-1032-6928　·　📍 求职意向：AI 应用工程师（南京）</div>
   <div style="margin-top:8px">© 2026 汲奕衡 · aheng.cloud</div>
 </footer>
+
+
+<script>
+document.querySelectorAll('.arch').forEach(function(arch){
+  var nodes = Array.prototype.slice.call(arch.querySelectorAll('.node[data-d]'));
+  if(!nodes.length) return;
+  var hint = document.createElement('div'); hint.className='arch-hint'; hint.textContent='💡 点击任意模块，看这一层的设计思路';
+  arch.appendChild(hint);
+  var panel = document.createElement('div'); panel.className='arch-detail';
+  arch.appendChild(panel);
+  nodes.forEach(function(n){
+    n.addEventListener('click', function(){
+      if(n.classList.contains('active')){ n.classList.remove('active'); panel.classList.remove('show'); return; }
+      nodes.forEach(function(x){ x.classList.remove('active'); });
+      n.classList.add('active');
+      panel.textContent = n.getAttribute('data-d');
+      panel.classList.add('show');
+    });
+  });
+});
+</script>
 
 </body>
 </html>
