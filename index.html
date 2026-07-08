@@ -133,19 +133,19 @@
       <h3>财小助 · AI 审计预检助手</h3>
       <div class="period">2026.04 – 至今 · 主导开发 · 已部署上线</div>
     </div>
-    <div class="intro">面向审计师的强合规 AI 产品：上传科目余额表 / 财务报表，确定性审计引擎自动执行 54 项检查，输出<b>可追溯</b>的风险信号，5 位审计专家 Agent 协作呈现。金融场景的反幻觉设计——审计结论由引擎计算，大模型只负责编排与表达。</div>
+    <div class="intro">面向审计师的强合规 AI 产品：上传科目余额表 / 财务报表，确定性审计引擎自动执行全量检查，输出<b>可追溯</b>的风险信号，5 位审计专家 Agent 协作呈现。金融场景的反幻觉设计——审计结论由引擎计算，大模型只负责编排与表达。</div>
     <div class="arch">
-      <div class="node" data-d="React + TypeScript + Zustand。铁律是「只渲染引擎真实 JSON」：风险信号、检查结果、报告全部来自后端真实输出，前端不做任何补全或润色——引擎没跑就明示&quot;未执行&quot;。WebSocket 事件流驱动会话与进度状态，102 个单元测试兜底。">React 前端<small>只渲染真实 JSON</small></div>
+      <div class="node" data-d="React + TypeScript + Zustand。铁律是「只渲染引擎真实 JSON」：风险信号、检查结果、报告全部来自后端真实输出，前端不做任何补全或润色——引擎没跑就明示&quot;未执行&quot;。WebSocket 事件流驱动会话与进度状态，单元测试全程兜底。">React 前端<small>只渲染真实 JSON</small></div>
       <div class="arr">⇄</div>
       <div class="node core" data-d="基于开源 Agent 平台二次开发（源码仅改动一个文件，保持可升级）。DeepSeek 负责编排：识别意图 → 决定调用审计引擎 → 把引擎 JSON 转写成审计师能读的话。针对模型指令跟随不稳，用固定命令模板 + 脚本封装约束行为，不留自由发挥空间。">Agent 平台<small>WS 事件流 · DeepSeek 编排</small></div>
       <div class="arr">⇄</div>
-      <div class="node" data-d="54 项检查全部由 Python 确定性计算（比例、同比、集中度、勾稽核对等 13 种检查型号），每项带判断公式、风险分级与法条引用。大模型无法参与结论生成——这是反幻觉的物理保证，也是&quot;玻璃盒&quot;的根。">确定性审计引擎<small>31+23 项检查 · Python</small></div>
+      <div class="node" data-d="全部检查项由 Python 确定性计算（比例、同比、集中度、勾稽核对等 13 种检查型号），每项带判断公式、风险分级与法条引用。大模型无法参与结论生成——这是反幻觉的物理保证，也是&quot;玻璃盒&quot;的根。">确定性审计引擎<small>纯代码判断 · Python</small></div>
       <div class="arr">→</div>
-      <div class="node" data-d="法规原文按「道法术势例辩用」七步蒸馏为结构化规则，每条带法条与条款号溯源；检查项通过引用字段指回规则原文，执行层不脱离依据层。Web 端蒸馏工坊实现&quot;智能分条 → 批量蒸馏 → 审阅要点雷达（自动比对原文揪出 AI 引入的数字）→ 人工审阅 → 入库&quot;完整闭环。">76 条规则知识库<small>七步蒸馏法 · 闭环工坊</small></div>
+      <div class="node" data-d="法规原文按「道法术势例辩用」七步蒸馏为结构化规则，每条带法条与条款号溯源；检查项通过引用字段指回规则原文，执行层不脱离依据层。Web 端蒸馏工坊实现&quot;智能分条 → 批量蒸馏 → 审阅要点雷达（自动比对原文揪出 AI 引入的数字）→ 人工审阅 → 入库&quot;完整闭环。">规则知识库<small>七步蒸馏法 · 闭环工坊</small></div>
     </div>
     <div class="hl">
       <div class="hl-item"><b>玻璃盒可信架构</b>引擎输出与 LLM 文字严格分离，每个风险信号可回溯到规则原文，不给幻觉留空间。</div>
-      <div class="hl-item"><b>七步蒸馏知识库</b>把审计专家经验按「道法术势例辩用」结构化为 76 条可检索规则，并实现"蒸馏 → 审阅 → 入库"的 Web 端闭环工坊。</div>
+      <div class="hl-item"><b>七步蒸馏知识库</b>把审计专家经验按「道法术势例辩用」结构化为可检索的规则库，并实现"蒸馏 → 审阅 → 入库"的 Web 端闭环工坊。</div>
       <div class="hl-item"><b>生产级疑难排障</b>攻克 20 万 token 大文件撑爆上下文、LLM 长路径误写等真实生产问题，全栈部署上线。</div>
     </div>
     <div class="stack"><span>React</span><span>TypeScript</span><span>Tailwind</span><span>WebSocket</span><span>Python</span><span>DeepSeek</span><span>Nginx</span><span>systemd</span></div>
