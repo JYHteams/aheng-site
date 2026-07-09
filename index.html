@@ -97,14 +97,12 @@
     .proj .period{margin-left:0;width:100%}
   }
 </style>
-<!-- 百度统计 -->
+<!-- 自建访客统计(s.aheng.cloud,数据归自己) -->
 <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?7dca7bcaede441c08058bfe5e5a64e15";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
+(function(){
+  var i = new Image();
+  i.src = "https://s.aheng.cloud/visit.gif?p=" + encodeURIComponent(location.pathname)
+        + "&r=" + encodeURIComponent(document.referrer) + "&_=" + Date.now();
 })();
 </script>
 </head>
